@@ -1,0 +1,11 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: linear-gradient(to bottom right, white, #f1fff1, #d6fce7);
+  min-height: 100vh;
+}
+
+.submit_button{
+  display: flex;
+}
