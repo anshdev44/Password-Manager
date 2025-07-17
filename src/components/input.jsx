@@ -3,15 +3,18 @@ import { FaEye } from "react-icons/fa";
 import '../App.css'
 import { useState } from "react";
 import myGif from '../assets/tick.gif'
+import { ToastContainer, toast } from 'react-toastify';
+import { Bounce } from 'react-toastify';
+import { Slide, Flip } from "react-toastify";
 
 export default function Inputs(props) {
 
   const [visiblity, setVisiblity] = useState(true);
 
   function handleclick() {
-    if(props.Edit===true){
+    if (props.Edit === true) {
       props.setEdit(false);
-        const newEntry = {
+      const newEntry = {
         url: props.url,
         Username: props.Username,
         password: props.password
@@ -19,7 +22,7 @@ export default function Inputs(props) {
       props.setpass(prev => [...prev, newEntry]);
       localStorage.setItem("passwords", JSON.stringify([...props.pass, newEntry]));
     }
-    else{
+    else {
       const newEntry = {
         url: props.url,
         Username: props.Username,
@@ -47,14 +50,39 @@ export default function Inputs(props) {
     setVisiblity(prev => !prev);
   }
 
+  function notify() {
+    if (props.Edit === true) {
+      toast('Saved Your Edit')
+    }
+    else {
+      toast('Password Saved')
+    }
+  }
+
   return (
     <div className="my-[0px] flex flex-col items-center mt-8 sm:mt-12 text-center text-gray-800 bg-gradient-to-br from-green-50 via-white to-green-100 min-h-[0vh] px-4 sm:px-6 lg:px-8">
-      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-black drop-shadow-md">
-        &lt;Pass<span className="text-green-500">OP</span>/&gt;
-      </h1>
+      <div>
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-black drop-shadow-md">
+          &lt;Pass<span className="text-green-500">OP</span>/&gt;
+        </h1>
+        <ToastContainer
+          position="top-right"
+          autoClose={1800}
+          hideProgressBar={false}
+          closeOnClick
+          pauseOnHover={false}
+          draggable={false}
+          pauseOnFocusLoss={false}
+          newestOnTop
+          limit={3}
+          theme="dark"
+          transition={Slide}
+        />
+      </div>
       <p className="text-sm sm:text-base lg:text-lg mt-2 mb-8 sm:mb-10 text-gray-500 max-w-md">
         Your own <span className="text-green-700 font-semibold">Password Manager</span>
       </p>
+
 
       {props.Edit && (
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 px-4 sm:px-6 py-3 bg-yellow-100 border border-yellow-300 text-yellow-800 rounded-xl shadow-md w-full max-w-5xl">
@@ -101,7 +129,7 @@ export default function Inputs(props) {
 
         <div className="flex justify-center">
           <button
-            onClick={() => { handleclick(), clearup() }}
+            onClick={() => { handleclick(), clearup(), notify() }}
             className="cursor-pointer flex gap-2 items-center bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 sm:px-8 py-3 rounded-full font-semibold text-sm sm:text-base lg:text-lg shadow-md hover:shadow-lg transition-all w-full sm:w-auto max-w-xs"
           >
             <img src={myGif} alt="" className="w-[24px] sm:w-[30px]" />

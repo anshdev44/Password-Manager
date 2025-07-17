@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import mycopy from '../assets/copy.svg'
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function Password(props) {
   const [passwordVisibility, setPasswordVisibility] = useState({});
@@ -11,6 +12,7 @@ export default function Password(props) {
     props.setpass(updatedPass);
     props.setold(updatedPass);
     localStorage.setItem("passwords", JSON.stringify(updatedPass));
+    toast('Password Deleted')
   }
 
   function Edit(item, index) {
@@ -26,6 +28,7 @@ export default function Password(props) {
   async function copy(item) {
     try {
       await navigator.clipboard.writeText(item);
+      toast('Copied To Clipboard')
     } catch (err) {
       console.log(err);
     }

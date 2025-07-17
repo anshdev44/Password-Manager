@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import { Nav } from './components/nav';
 import Inputs from './components/input';
 import Password from './components/passwords';
+import { ToastContainer, toast } from 'react-toastify';
+import { Bounce } from 'react-toastify';
+
 
 function App() {
   const [url, seturl] = useState('');
@@ -13,17 +16,19 @@ function App() {
   const [Edits, setEdits] = useState({});
   const [old, setold] = useState([]);
 
+
   useEffect(() => {
     try {
       const passes = JSON.parse(localStorage.getItem("passwords")) || [];
       setold(passes);
       setpass(passes);
-      
+      if (passes.length > 0) { toast('Old Passwords R etrieved') }
+      else toast('Welcome to the page')
     } catch (err) {
       console.error("Corrupted localStorage value", err);
       setold([]);
     }
-  }, []); 
+  }, []);
 
   return (
     <div>
@@ -42,7 +47,7 @@ function App() {
         Edits={Edits}
         setEdits={setEdits}
         old={old}
-        setold={setold}  
+        setold={setold}
       />
 
       <Password
@@ -59,7 +64,7 @@ function App() {
         Edits={Edits}
         setEdits={setEdits}
         old={old}
-        setold={setold}  
+        setold={setold}
       />
     </div>
   );
